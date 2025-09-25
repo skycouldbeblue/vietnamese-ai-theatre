@@ -220,7 +220,7 @@
     <!-- Thinking overlay -->
     <div class="thinking-overlay" id="thinkingOverlay">
         <div class="thinking-container">
-            <div class="thinking-text">Vietnamese AI is thinking...</div>
+            <div class="thinking-text">Considering your options...</div>
             <div class="thinking-dots">
                 <div class="thinking-dot"></div>
                 <div class="thinking-dot"></div>
@@ -282,11 +282,33 @@
                 // Flash the sound cue for the sound person
                 soundCue.classList.add('active');
                 
+                // Cycle through thinking messages
+                const thinkingMessages = [
+                    "going with gut...",
+                    "weighing pros and cons...",
+                    "consulting your best self...",
+                    "mild breakdown...",
+                    "existential crisis resolved!"
+                ];
+                
+                const thinkingTextElement = document.querySelector('.thinking-text');
+                let messageIndex = 0;
+                
+                const messageInterval = setInterval(() => {
+                    if (messageIndex < thinkingMessages.length) {
+                        thinkingTextElement.textContent = thinkingMessages[messageIndex];
+                        messageIndex++;
+                    }
+                }, 1000); // Change message every 1 second
+                
                 // Hide overlay and sound cue after 5 seconds
                 setTimeout(() => {
+                    clearInterval(messageInterval);
                     thinkingOverlay.style.display = 'none';
                     soundCue.classList.remove('active');
                     inputField.focus(); // Re-focus input for next question
+                    // Reset to first message for next time
+                    thinkingTextElement.textContent = thinkingMessages[0];
                 }, 5000);
                 
                 // Optional: Brief visual feedback on send button
